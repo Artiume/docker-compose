@@ -1,12 +1,28 @@
 #!/bin/bash
 
-    echo""
-    echo "...Standard Stack Down..."
-    echo""
+  ## Normal Use:
+    # In the terminal enter:
+    # bash ddown.sh <service> <service> <service>... etc
+    # 
+    # Example to stop traefik container/docker-compose script:
+    # bash ddown.sh traefik 
+    
+  ## Optional Use:
+    # Uncomment lines below and shut down specific batches of containers with:
+    # bash ddown.sh
+
+CONTAINERS="$@"
+for c in $CONTAINERS
+do
+  echo""
+  echo "...$c down..."
+  echo""
+  docker-compose -f "/home/$USER/docker/ymlfiles/$c.yml" -p $c down
+  done
 
 #    docker-compose -f ~/docker/ymlfiles/pihole.yml -p pihole down
 #    docker-compose -f ~/docker/ymlfiles/openvpn.yml -p openvpn down
-    docker-compose -f ~/docker/ymlfiles/traefik.yml -p traefik down
+#    docker-compose -f ~/docker/ymlfiles/traefik.yml -p traefik down
 #    docker-compose -f ~/docker/ymlfiles/fail2ban.yml -p fail2ban down
 #    docker-compose -f ~/docker/ymlfiles/ouroboros.yml -p ouroboros down
 #    docker-compose -f ~/docker/ymlfiles/healthchecks.yml -p healthchecks down
@@ -36,9 +52,9 @@
 #    docker-compose -f ~/docker/ymlfiles/wetty.yml -p wetty down
 #    docker-compose -f ~/docker/ymlfiles/wekan.yml -p wekan down
 
-    echo""
-    echo "...Others Down..."
-    echo""
+#    echo""
+#    echo "...Others Down..."
+#    echo""
 
 #    docker-compose -f ~/docker/ymlfiles/test.yml -p test down
 #    docker-compose -f ~/docker/ymlfiles/test2.yml -p test2 down

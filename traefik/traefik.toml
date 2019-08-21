@@ -1,5 +1,5 @@
 logLevel = "INFO" #DEBUG, INFO, WARN, ERROR, FATAL, PANIC
-InsecureSkipVerify = true
+#InsecureSkipVerify = true
 defaultEntryPoints = ["http", "https"]
 
 [api]
@@ -19,7 +19,7 @@ defaultEntryPoints = ["http", "https"]
     [entryPoints.http.auth.forward]
       address = "http://oauth:4181"
       trustForwardHeader = true
-      authResponseHeaders = ["X-Auth-User"]
+      authResponseHeaders = ["X-Forwarded-User"]
 
 [file]
   filename = "/etc/traefik/rules.toml"

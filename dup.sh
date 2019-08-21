@@ -5,14 +5,30 @@
 
   ## Check logs with:
     # docker logs -tf --tail="50" <container name>
+  
+  ## Normal Use:
+    # In the terminal enter:
+    # bash dup.sh <service> <service> <service>... etc
+    # 
+    # Example to start traefik container/docker-compose script:
+    # bash dup.sh traefik bitwarden plex
 
-    echo""
-    echo "...Standard Stack Up..."
-    echo""
+  ## Optional Use:
+    # Uncomment lines below and bring up specific batches of containers with:
+    # bash dup.sh
+
+CONTAINERS="$@"
+for c in $CONTAINERS
+do
+  echo""
+  echo "...$c up..."
+  echo""
+  docker-compose -f "/home/$USER/docker/ymlfiles/$c.yml" -p $c up -d
+  done
 
 #    docker-compose -f ~/docker/ymlfiles/pihole.yml -p pihole up -d
 #    docker-compose -f ~/docker/ymlfiles/openvpn.yml -p openvpn up -d
-    docker-compose -f ~/docker/ymlfiles/traefik.yml -p traefik up -d
+#    docker-compose -f ~/docker/ymlfiles/traefik.yml -p traefik up -d
 #    docker-compose -f ~/docker/ymlfiles/fail2ban.yml -p fail2ban up -d
 #    docker-compose -f ~/docker/ymlfiles/ouroboros.yml -p ouroboros up -d
 #    docker-compose -f ~/docker/ymlfiles/healthchecks.yml -p healthchecks up -d
@@ -42,9 +58,9 @@
 #    docker-compose -f ~/docker/ymlfiles/wetty.yml -p wetty up -d
 #    docker-compose -f ~/docker/ymlfiles/wekan.yml -p wekan up -d                  # Mongo
 
-    echo""
-    echo "...Others Up..."
-    echo""
+#    echo""
+#    echo "...Others Up..."
+#    echo""
 
 #    docker-compose -f ~/docker/ymlfiles/test.yml -p test up -d
 #    docker-compose -f ~/docker/ymlfiles/test2.yml -p test2 up -d
